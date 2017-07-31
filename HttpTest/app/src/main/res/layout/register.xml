@@ -9,20 +9,10 @@
     android:background="@drawable/login_bg"
     >
 
-    <com.hanks.htextview.fall.FallTextView
-        android:id="@+id/textview3"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        android:text="@string/initStr"
-        android:textColor="#fff"
-        android:textSize="40sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         >
         <android.support.design.widget.TextInputLayout
             android:layout_marginTop="20dp"
@@ -32,7 +22,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="48dp"
             android:layout_marginStart="48dp"
-            android:hint="手机号码">
+            android:hint="用户名">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/username"
@@ -60,6 +50,23 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/phoneLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="48dp"
+            android:layout_marginStart="48dp"
+            android:hint="手机号码">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/phonenum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
@@ -67,8 +74,9 @@
             android:layout_marginEnd="48dp"
             android:layout_marginStart="48dp"
             android:background="@drawable/button"
-            android:text="登录"
-            android:clickable="false"/>
+            android:text="注册"
+            android:clickable="false"
+            />
 
         <TextView
             android:id="@+id/textView"
@@ -80,7 +88,7 @@
             android:autoLink="all"
             android:clickable="true"
             android:gravity="center"
-            android:text="@string/hava_not_register"
+            android:text="@string/callme"
             android:textColor="#999999"
             android:textSize="12sp" />
     </LinearLayout>
