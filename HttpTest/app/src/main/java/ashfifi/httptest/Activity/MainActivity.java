@@ -28,14 +28,12 @@ public class MainActivity extends BaseActivity {
     TextView textView;
 
     TextInputLayout editText,editText2;
-    Context context;
 
     private FallTextView  hTextView3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context=getApplicationContext();
         editText = (TextInputLayout) findViewById(R.id.usernameLayout);
         editText2 = (TextInputLayout)findViewById(R.id.passwordLayout);
         button = (Button)findViewById(R.id.button);
@@ -46,9 +44,8 @@ public class MainActivity extends BaseActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,Splash.class);
+                Intent intent=new Intent(MainActivity.this,Register.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -67,6 +64,8 @@ public class MainActivity extends BaseActivity {
         OkHttpClient mOkHttpClient = new OkHttpClient();
         RequestBody formBody = new FormEncodingBuilder()
                 .add("name", editText.getEditText().getText().toString())
+                .add("type","log")
+                .add("phonenum","13732393399")
                 .build();
         final Request request = new Request.Builder()
                 .url("http://39.108.60.222:8080")

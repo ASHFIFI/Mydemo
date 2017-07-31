@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ashfifi.httptest">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,8 @@
         <activity android:name=".Activity.MainActivity">
         </activity>
         <activity android:name=".Activity.BaseActivity">
+        </activity>
+        <activity android:name=".Activity.Register">
         </activity>
     </application>
 
