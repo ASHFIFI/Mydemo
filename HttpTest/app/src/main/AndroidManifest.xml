@@ -23,6 +23,8 @@
         </activity>
         <activity android:name=".Activity.Register">
         </activity>
+        <activity android:name=".Activity.HomePage">
+        </activity>
     </application>
 
 </manifest>

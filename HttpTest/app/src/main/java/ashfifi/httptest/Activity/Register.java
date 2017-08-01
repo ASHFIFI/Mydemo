@@ -201,7 +201,7 @@ public class Register extends AppCompatActivity {
                 .add("phonenum",editText3.getEditText().getText().toString())
                 .build();
         final Request request = new Request.Builder()
-                .url("http://39.108.60.222:8080")
+                .url("xxx")
                 .post(formBody)
                 .build();
         Call call = mOkHttpClient.newCall(request);

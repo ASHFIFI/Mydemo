@@ -63,12 +63,12 @@ public class MainActivity extends BaseActivity {
         //创建okHttpClient对象
         OkHttpClient mOkHttpClient = new OkHttpClient();
         RequestBody formBody = new FormEncodingBuilder()
-                .add("name", editText.getEditText().getText().toString())
                 .add("type","log")
-                .add("phonenum","13732393399")
+                .add("phonenum",editText.getEditText().getText().toString())
+                .add("username", editText2.getEditText().getText().toString())
                 .build();
         final Request request = new Request.Builder()
-                .url("http://39.108.60.222:8080")
+                .url("xxx")
                 .post(formBody)
                 .build();
         Call call = mOkHttpClient.newCall(request);
@@ -84,15 +84,26 @@ public class MainActivity extends BaseActivity {
             }
             @Override
             public void onResponse(final Response response) throws IOException {
-                final String str = response.body().string();
+                final String data = response.body().string();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplication(), "请求成功", Toast.LENGTH_SHORT).show();
-
+                        handleLogin(data);
                     }
                 });
             }
         });
+    }
+    private void handleLogin(String data){
+        if(data.equals("尚未注册")){
+            Toast.makeText(getApplication(), "账号尚未注册", Toast.LENGTH_SHORT).show();
+        }else{
+            jumpToHomePage();
+        }
+    }
+    private void jumpToHomePage(){
+        Intent intent=new Intent(MainActivity.this,HomePage.class);
+        startActivity(intent);
+        finish();
     }
 }
