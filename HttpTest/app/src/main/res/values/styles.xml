@@ -19,6 +19,13 @@
         <item name="android:tint">@color/gray</item>
     </style>
 
+    <style name="ToolBar">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@drawable/icon_back</item>
+    </style>
+
     <color name="white">#ffffff</color>
     <color name="gray">#c4c4c4</color>
     <color name="dark_gray">#3f3f3f</color>
