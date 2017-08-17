@@ -3,6 +3,7 @@ package ashfifi.httptest.Activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.design.widget.TextInputLayout;
@@ -44,7 +45,10 @@ public class MainActivity extends BaseActivity {
     TextView textView;
 
     TextInputLayout editText,editText2;
-
+    String phoneNumber;
+    String password;
+    String phoneNumberText = null;
+    String passwordText = null;
     private FallTextView  hTextView3;
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -65,6 +69,14 @@ public class MainActivity extends BaseActivity {
 
         editText = (TextInputLayout) findViewById(R.id.usernameLayout);
         editText2 = (TextInputLayout)findViewById(R.id.passwordLayout);
+        SharedPreferences sharedPre=getApplicationContext().getSharedPreferences("config",Context.MODE_PRIVATE);
+        phoneNumberText = sharedPre.getString("phoneNumber","");
+        passwordText = sharedPre.getString("password","");
+        if(!(phoneNumberText.equals(""))){
+            editText.getEditText().setText(phoneNumberText);
+            editText2.getEditText().setText(passwordText);
+        }
+
         button = (Button)findViewById(R.id.button);
         textView = (TextView)findViewById(R.id.textView);
         hTextView3 = (FallTextView) findViewById(R.id.textview3);
@@ -111,7 +123,7 @@ public class MainActivity extends BaseActivity {
             mLocationClient.setLocationOption(getOptions());
             mLocationClient.startLocation();
         }else{
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},8);
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.RECORD_AUDIO},8);
         }
     }
     @Override
@@ -212,10 +224,26 @@ public class MainActivity extends BaseActivity {
     }
     private void handleLogin(String data){
         if(data.equals("登录成功")){
+            if(phoneNumberText.equals("")){
+                phoneNumber = editText.getEditText().getText().toString();
+                password = editText2.getEditText().getText().toString();
+                saveLoginInfo(getApplicationContext(),phoneNumber,password);
+            }
             jumpToHomePage();
         }else{
             Toast.makeText(getApplication(),data, Toast.LENGTH_SHORT).show();
         }
+    }
+    public static void saveLoginInfo(Context context,String phoneNumber,String password){
+        //获取SharedPreferences对象
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        //获取Editor对象
+        SharedPreferences.Editor editor=sharedPre.edit();
+        //设置参数
+        editor.putString("phoneNumber", phoneNumber);
+        editor.putString("password", password);
+        //提交
+        editor.commit();
     }
     private void jumpToHomePage(){
         Intent intent=new Intent(MainActivity.this,HomePage.class);

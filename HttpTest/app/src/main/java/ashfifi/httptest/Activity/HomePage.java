@@ -3,19 +3,21 @@ import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import ashfifi.httptest.Adapter.FragAdapter;
 import ashfifi.httptest.R;
 import ashfifi.httptest.fragment.Discover;
 import ashfifi.httptest.fragment.Profile;
 import ashfifi.httptest.fragment.ShowChart;
 import ashfifi.httptest.fragment.Spectrum;
+import ashfifi.httptest.transform.DepthPageTransformer;
 
 /**
  * Created by aa on 17/8/1.
@@ -39,7 +41,7 @@ public class HomePage extends AppCompatActivity {
     private String connectMsg = "";;
     private int index;
     private int currentTabIndex;// 当前fragment的index
-
+    private ViewPager viewPager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class HomePage extends AppCompatActivity {
         discover = new Discover();
         showChart = new ShowChart();
         spectrum = new Spectrum();
-        fragments = new Fragment[]{showChart,profile,discover, spectrum};
+        fragments = new Fragment[]{showChart,spectrum,discover,profile};
 
         imagebuttons = new ImageView[4];
         imagebuttons[0] = (ImageView) findViewById(R.id.ib_weixin);
@@ -70,15 +72,35 @@ public class HomePage extends AppCompatActivity {
         textviews[3] = (TextView) findViewById(R.id.tv_profile);
         textviews[0].setTextColor(0xFF45C01A);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container,showChart)
-                .add(R.id.fragment_container,spectrum)
-                .add(R.id.fragment_container,profile)
-                .add(R.id.fragment_container,discover)
-                .hide(spectrum)
-                .hide(showChart)
-                .hide(profile)
-                .show(discover).commit();
+        FragmentManager fm =getSupportFragmentManager();
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        FragAdapter fragAdapter = new FragAdapter(fm,fragments);
+        viewPager.setAdapter(fragAdapter);
+        viewPager.setCurrentItem(0);
+        viewPager.setPageTransformer(true,new DepthPageTransformer());
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                imagebuttons[currentTabIndex].setSelected(false);
+                // 把当前tab设为选中状态
+                imagebuttons[position].setSelected(true);
+                textviews[currentTabIndex].setTextColor(0xFF999999);
+                textviews[position].setTextColor(0xFF45C01A);
+                currentTabIndex = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
     public void onTabClicked(View view) {
         switch (view.getId()) {
@@ -106,13 +128,7 @@ public class HomePage extends AppCompatActivity {
                 break;
         }
         if (currentTabIndex != index) {
-            FragmentTransaction trx = getSupportFragmentManager()
-                    .beginTransaction();
-            trx.hide(fragments[currentTabIndex]);
-            if (!fragments[index].isAdded()) {
-                trx.add(R.id.fragment_container, fragments[index]);
-            }
-            trx.show(fragments[index]).commit();
+            viewPager.setCurrentItem(index);
         }
         imagebuttons[currentTabIndex].setSelected(false);
         // 把当前tab设为选中状态

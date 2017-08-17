@@ -57,7 +57,6 @@ public class Spectrum extends Fragment {
             mLinearLayout = (LinearLayout)view.findViewById(R.id.spec);
             mLinearLayout.setOrientation(LinearLayout.VERTICAL);
             mLinearLayout.addView(mStatusTextView);
-
             // Create the MediaPlayer
             mMediaPlayer = MediaPlayer.create(activity, R.raw.qhc);
             Log.d(TAG, "MediaPlayer audio session ID: " + mMediaPlayer.getAudioSessionId());

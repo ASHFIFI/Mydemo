@@ -42,7 +42,7 @@ public class ShowChart extends Fragment{
             dataObjects[2] = new MyDataObject(3, 13);
             dataObjects[3] = new MyDataObject(4, 14);
             dataObjects[4] = new MyDataObject(5, 15);
-            List<Entry> entries = new ArrayList<Entry>();
+            List<Entry> entries = new ArrayList<>();
             for (MyDataObject data : dataObjects) {
                 entries.add(new Entry(data.getValueX(), data.getValueY()));
             }
