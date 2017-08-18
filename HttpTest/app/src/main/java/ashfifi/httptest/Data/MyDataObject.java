@@ -1,8 +1,5 @@
 package ashfifi.httptest.Data;
 
-/**
- * Created by aa on 17/8/8.
- */
 
 public class MyDataObject {
     public  int x,y;
