@@ -2,6 +2,7 @@ package ashfifi.httptest.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -22,10 +23,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+
+import ashfifi.httptest.Activity.Test;
 import ashfifi.httptest.R;
 
 /**
@@ -46,12 +52,14 @@ public class Spectrum extends Fragment {
     private VisualizerView mVisualizerView;
     private TextView mStatusTextView;
     private TextView mInfoView;
+
     View view;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
             super.onCreateView(inflater,container,savedInstanceState);
             activity = this.getActivity();
             view = activity.getLayoutInflater().inflate(R.layout.spectrum,container,false);
+
             mStatusTextView = new TextView(activity);
             //mLinearLayout = new LinearLayout(activity);
             mLinearLayout = (LinearLayout)view.findViewById(R.id.spec);
@@ -59,6 +67,15 @@ public class Spectrum extends Fragment {
             mLinearLayout.addView(mStatusTextView);
             // Create the MediaPlayer
             mMediaPlayer = MediaPlayer.create(activity, R.raw.qhc);
+
+//            try {
+//                mMediaPlayer = new MediaPlayer();
+//                mMediaPlayer.setDataSource("http://39.108.60.222:8080/music/qhc.mp3");
+//                mMediaPlayer.prepare();
+//            }catch (IOException e){
+//
+//            }
+
             Log.d(TAG, "MediaPlayer audio session ID: " + mMediaPlayer.getAudioSessionId());
 
             if(ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO)== PackageManager.PERMISSION_GRANTED){

@@ -41,6 +41,7 @@ public class Register extends AppCompatActivity {
     TextView textView;
     TextInputLayout editText,editText2,editText3;
       Boolean usernameable=false,passwordable=false,phoneable=false;
+    String url="http://39.108.60.222:8080";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,7 +202,7 @@ public class Register extends AppCompatActivity {
                 .add("phonenum",editText3.getEditText().getText().toString())
                 .build();
         final Request request = new Request.Builder()
-                .url("xxx")
+                .url(url)
                 .post(formBody)
                 .build();
         Call call = mOkHttpClient.newCall(request);

@@ -19,9 +19,6 @@ import ashfifi.httptest.fragment.ShowChart;
 import ashfifi.httptest.fragment.Spectrum;
 import ashfifi.httptest.transform.DepthPageTransformer;
 
-/**
- * Created by aa on 17/8/1.
- */
 
 public class HomePage extends AppCompatActivity {
     Profile profile;

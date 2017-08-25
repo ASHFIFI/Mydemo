@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
     String speed="0";//
     String Bearing="0";
     String address="0";
+    String url="http://39.108.60.222:8080";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,7 +197,7 @@ public class MainActivity extends BaseActivity {
                 .add("address",address)
                 .build();
         final Request request = new Request.Builder()
-                .url("xxx")
+                .url(url)
                 .post(formBody)
                 .build();
         Call call = mOkHttpClient.newCall(request);
